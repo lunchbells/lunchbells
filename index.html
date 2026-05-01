@@ -1,25 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <title>lunchbells</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      margin: 1;
+      background: white;
+      color: black;
       font-family: Helvetica, sans-serif;
+      font-size: 12pt;
     }
 
     header {
+      padding: 24px 32px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 200px 1fr 280px;
+      min-height: calc(100vh - 65px);
+    }
+
+    /* ── LEFT NAV ── */
+    .col-nav {
+      padding: 0 32px 32px;
+    }
+
+    .col-nav ul {
+      list-style: none;
+    }
+
+    .col-nav ul li {
+      margin-bottom: 6px;
+    }
+
+    .col-nav ul li a {
+      font-size: 12pt;
+      color: black;
+      text-decoration: none;
+    }
+
+    .col-nav ul li a:hover {
+      color: grey;
+    }
+
+    /* ── MIDDLE: IMAGE ── */
+    .col-images {
+      padding: 0 32px 32px;
+      display: none;
+    }
+
+    .col-images.visible {
+      display: block;
+    }
+
+    .img-placeholder {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12pt;
+      color: #999;
+    }
+
+    /* ── RIGHT: DESCRIPTION ── */
+    .col-desc {
+      padding: 0 24px 32px;
+      display: none;
+    }
+
+    .col-desc.visible {
+      display: block;
+    }
+
+    .col-desc h3 {
+      display: none;
+    }
+
+    .col-desc p {
+      font-size: 12pt;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .col-desc .price {
+      margin-bottom: 12px;
+    }
+
+    .col-desc button {
+      font-family: Helvetica, sans-serif;
+      font-size: 12pt;
       background: white;
       color: black;
-      padding: 1rem 2rem;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .col-desc button:hover {
+      opacity: 0.5;
     }
   </style>
-  <title> lunch bells </title>
 </head>
 <body>
 
   <header>
-    lunch bells
+    <h1 style="font-size:12pt; font-weight:bold;"><a href="#" onclick="goHome(); return false;" style="color:black; text-decoration:none;">lunchbells</a></h1>
   </header>
+
+  <div class="layout">
+
+    <!-- LEFT: nav -->
+    <nav class="col-nav">
+      <ul>
+        <li><a href="#" onclick="showProduct('accessories'); return false;">accessories</a></li>
+        <li><a href="#" onclick="showPage('special project'); return false;">special project</a></li>
+        <li><a href="#" onclick="showPage('contact'); return false;">contact</a></li>
+        <li><a href="#" onclick="showPage('legal terms'); return false;">legal terms</a></li>
+        <li><a href="#" onclick="showPage('personal data'); return false;">personal data</a></li>
+      </ul>
+    </nav>
+
+    <!-- MIDDLE: image -->
+    <main class="col-images" id="col-images">
+      <div class="img-placeholder" id="product-image">image</div>
+    </main>
+
+    <!-- RIGHT: description -->
+    <aside class="col-desc" id="col-desc">
+      <div id="gallery-nav" style="display:none; margin-bottom:12px;">
+        <button onclick="prevImage()" style="font-family:Helvetica,sans-serif; font-size:12pt; background:white; color:black; border:none; padding:0; cursor:pointer; text-decoration:none;" onmouseover="this.style.color='grey'" onmouseout="this.style.color='black'">previous</button>
+        <span> / </span>
+        <button onclick="nextImage()" style="font-family:Helvetica,sans-serif; font-size:12pt; background:white; color:black; border:none; padding:0; cursor:pointer; text-decoration:none;" onmouseover="this.style.color='grey'" onmouseout="this.style.color='black'">next</button>
+      </div>
+      <h3 id="product-name"></h3>
+      <p id="product-desc"></p>
+      <p class="price" id="product-price"></p>
+      <span id="product-cta"></span>
+    </aside>
+
+  </div>
+
+  <script>
+    const products = {
+      accessories: {
+        name: 'accessories',
+        images: [
+          { src: null, label: 'image 1' },
+          { src: null, label: 'image 2' },
+          { src: null, label: 'image 3' },
+          { src: null, label: 'image 4' },
+          { src: null, label: 'image 5' }
+        ],
+        descriptions: [
+          { desc: 'thin band ring. sterling silver. available in sizes 5–10.', price: '$68' },
+          { desc: 'delicate chain necklace. 18k gold-plated. 16" length.', price: '$124' },
+          { desc: 'small hoop earrings. sterling silver. hypoallergenic posts.', price: '$48' },
+          { desc: 'delicate chain bracelet. 14k gold fill. adjustable 6"–7.5".', price: '$86' },
+          { desc: 'pendant necklace. sterling silver. 18" chain.', price: '$95' }
+        ],
+        cta: 'add to cart'
+      }
+    };
+
+    let currentIndex = 0;
+    let currentProduct = null;
+
+    const pages = {
+      'special project': {
+        name: 'special project',
+        desc: '',
+        price: '',
+        cta: '',
+        buttons: ['books', 'production']
+      },
+      contact: {
+        name: 'contact',
+        desc: 'text 310-283-2732',
+        price: '',
+        cta: ''
+      },
+      'legal terms': {
+        name: 'legal terms',
+        desc: 'all purchases are subject to our terms and conditions. prices are listed in usd and are subject to change. lunchbells reserves the right to cancel any order.',
+        price: '',
+        cta: ''
+      },
+      'personal data': {
+        name: 'personal data',
+        desc: 'we collect only the information necessary to process your order. your data is never sold to third parties.',
+        price: '',
+        cta: ''
+      }
+    };
+
+    function goHome() {
+      document.getElementById('col-images').classList.remove('visible');
+      document.getElementById('col-desc').classList.remove('visible');
+      document.querySelectorAll('.col-nav a').forEach(a => a.classList.remove('active'));
+    }
+
+    function showProduct(key) {
+      const p = products[key];
+      if (!p) return;
+
+      currentProduct = p;
+      currentIndex = 0;
+      renderGallery();
+
+      document.getElementById('col-images').classList.add('visible');
+      document.getElementById('col-desc').classList.add('visible');
+      document.getElementById('gallery-nav').style.display = p.images.length > 1 ? 'block' : 'none';
+
+      setActive(event.target);
+    }
+
+    function renderGallery() {
+      const p = currentProduct;
+      const img = p.images[currentIndex];
+      const info = p.descriptions[currentIndex];
+
+      const imageEl = document.getElementById('product-image');
+      imageEl.textContent = img.label;
+
+      document.getElementById('product-name').textContent = p.name;
+      document.getElementById('product-desc').textContent = info.desc;
+      document.getElementById('product-price').textContent = info.price;
+      document.getElementById('product-cta').innerHTML = p.cta ? `<button>${p.cta}</button>` : '';
+    }
+
+    function prevImage() {
+      if (!currentProduct) return;
+      currentIndex = (currentIndex - 1 + currentProduct.images.length) % currentProduct.images.length;
+      renderGallery();
+    }
+
+    function nextImage() {
+      if (!currentProduct) return;
+      currentIndex = (currentIndex + 1) % currentProduct.images.length;
+      renderGallery();
+    }
+
+    function showPage(key) {
+      const p = pages[key];
+      if (!p) return;
+
+      document.getElementById('col-images').classList.remove('visible');
+      document.getElementById('gallery-nav').style.display = 'none';
+      document.getElementById('product-name').textContent = p.name;
+      document.getElementById('product-desc').textContent = p.desc;
+      document.getElementById('product-price').textContent = p.price;
+
+      if (p.buttons) {
+        document.getElementById('product-cta').innerHTML = p.buttons
+          .map(b => `<button onclick="alert('${b} coming soon')" style="display:block; margin-bottom:6px; font-family:Helvetica,sans-serif; font-size:12pt; background:white; color:black; border:none; padding:0; cursor:pointer; text-decoration:none;" onmouseover="this.style.color='grey'" onmouseout="this.style.color='black'">${b}</button>`)
+          .join('');
+      } else {
+        document.getElementById('product-cta').innerHTML = '';
+      }
+
+      document.getElementById('col-desc').classList.add('visible');
+
+      setActive(event.target);
+    }
+
+    function setActive(el) {
+      document.querySelectorAll('.col-nav a').forEach(a => a.classList.remove('active'));
+      el.classList.add('active');
+    }
+  </script>
 
 </body>
 </html>
