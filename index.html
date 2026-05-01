@@ -71,10 +71,14 @@
 
     .img-placeholder {
       width: 100%;
-      height: 100%;
+      height: calc(100vh - 65px);
+      background: #f0f0f0;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 12pt;
+      color: #999;
+      object-fit: contain;
     }
 
     .col-images img {
@@ -124,15 +128,10 @@
       opacity: 0.5;
     }
 
-    /* ── MOBILE ── */
+      /* ── MOBILE ── */
     @media (max-width: 768px) {
-      html, body {
-        overflow: auto;
-      }
-
       .layout {
         display: block;
-        height: auto;
       }
 
       .col-nav {
@@ -147,15 +146,19 @@
         display: block;
       }
 
+      .img-placeholder {
+        width: 100%;
+        height: 60vw;
+      }
+
       .col-images img {
-        max-height: 60vh;
-        width: auto;
+        width: 100%;
+        height: 60vw;
+        object-fit: contain;
       }
 
       .col-desc {
         padding: 0 24px 24px;
-        max-height: none;
-        overflow: visible;
       }
     }
   </style>
@@ -183,19 +186,17 @@
       </ul>
     </nav>
 
-    <!-- MIDDLE: image -->
+     <!-- MIDDLE: image -->
     <main class="col-images" id="col-images">
-      <div class="img-placeholder">
-        <img id="product-image" src="" alt="">
-      </div>
+      <div class="img-placeholder" id="product-image">image</div>
     </main>
 
-    <!-- RIGHT: description -->
+ <!-- RIGHT: description -->
     <aside class="col-desc" id="col-desc">
       <div id="gallery-nav" style="display:none; margin-bottom:12px;">
-        <button onclick="prevImage()">previous</button>
+        <button onclick="prevImage()" style="font-family:Helvetica,sans-serif; font-size:12pt; background:white; color:black; border:none; padding:0; cursor:pointer; text-decoration:none;" onmouseover="this.style.color='grey'" onmouseout="this.style.color='black'">previous</button>
         <span> / </span>
-        <button onclick="nextImage()">next</button>
+        <button onclick="nextImage()" style="font-family:Helvetica,sans-serif; font-size:12pt; background:white; color:black; border:none; padding:0; cursor:pointer; text-decoration:none;" onmouseover="this.style.color='grey'" onmouseout="this.style.color='black'">next</button>
       </div>
       <h3 id="product-name"></h3>
       <p id="product-desc"></p>
@@ -205,19 +206,23 @@
 
   </div>
 
-  <script>
+   <script>
     const products = {
       accessories: {
         name: 'accessories',
         images: [
-          { src: 'https://via.placeholder.com/600x900', label: 'image 1' },
-          { src: 'https://via.placeholder.com/600x900', label: 'image 2' },
-          { src: 'https://via.placeholder.com/600x900', label: 'image 3' }
+          { src: null, label: 'image 1' },
+          { src: null, label: 'image 2' },
+          { src: null, label: 'image 3' },
+          { src: null, label: 'image 4' },
+          { src: null, label: 'image 5' }
         ],
         descriptions: [
           { desc: 'thin band ring. sterling silver. available in sizes 5–10.', price: '$68' },
           { desc: 'delicate chain necklace. 18k gold-plated. 16" length.', price: '$124' },
-          { desc: 'small hoop earrings. sterling silver. hypoallergenic posts.', price: '$48' }
+          { desc: 'small hoop earrings. sterling silver. hypoallergenic posts.', price: '$48' },
+          { desc: 'delicate chain bracelet. 14k gold fill. adjustable 6"–7.5".', price: '$86' },
+          { desc: 'pendant necklace. sterling silver. 18" chain.', price: '$95' }
         ],
         cta: 'add to cart'
       }
@@ -230,19 +235,27 @@
       'special project': {
         name: 'special project',
         desc: '',
+        price: '',
+        cta: '',
         buttons: ['books', 'production']
       },
       contact: {
         name: 'contact',
-        desc: 'text 310-283-2732'
+        desc: 'text 310-283-2732',
+        price: '',
+        cta: ''
       },
       'legal terms': {
         name: 'legal terms',
-        desc: 'all purchases are subject to our terms and conditions.'
+        desc: 'all purchases are subject to our terms and conditions. prices are listed in usd and are subject to change. lunchbells reserves the right to cancel any order.',
+        price: '',
+        cta: ''
       },
       'personal data': {
         name: 'personal data',
-        desc: 'we collect only necessary information. your data is never sold.'
+        desc: 'we collect only the information necessary to process your order. your data is never sold to third parties.',
+        price: '',
+        cta: ''
       }
     };
 
@@ -274,14 +287,12 @@
       const info = p.descriptions[currentIndex];
 
       const imageEl = document.getElementById('product-image');
-      imageEl.src = img.src;
-      imageEl.alt = img.label || '';
+      imageEl.textContent = img.label;
 
       document.getElementById('product-name').textContent = p.name;
       document.getElementById('product-desc').textContent = info.desc;
       document.getElementById('product-price').textContent = info.price;
-      document.getElementById('product-cta').innerHTML =
-        `<button onclick="addToCart()">add to cart</button>`;
+      document.getElementById('product-cta').innerHTML = p.cta ? `<button>${p.cta}</button>` : '';
     }
 
     function prevImage() {
@@ -296,35 +307,32 @@
       renderGallery();
     }
 
-    function showPage(key, event) {
+    function showPage(key) {
       const p = pages[key];
       if (!p) return;
 
       document.getElementById('col-images').classList.remove('visible');
       document.getElementById('gallery-nav').style.display = 'none';
-
       document.getElementById('product-name').textContent = p.name;
       document.getElementById('product-desc').textContent = p.desc;
-      document.getElementById('product-price').textContent = '';
+      document.getElementById('product-price').textContent = p.price;
 
       if (p.buttons) {
-        document.getElementById('product-cta').innerHTML =
-          p.buttons.map(b => `<button onclick="alert('${b} coming soon')">${b}</button>`).join('');
+        document.getElementById('product-cta').innerHTML = p.buttons
+          .map(b => `<button onclick="alert('${b} coming soon')" style="display:block; margin-bottom:6px; font-family:Helvetica,sans-serif; font-size:12pt; background:white; color:black; border:none; padding:0; cursor:pointer; text-decoration:none;" onmouseover="this.style.color='grey'" onmouseout="this.style.color='black'">${b}</button>`)
+          .join('');
       } else {
         document.getElementById('product-cta').innerHTML = '';
       }
 
       document.getElementById('col-desc').classList.add('visible');
+
       setActive(event.target);
     }
 
     function setActive(el) {
       document.querySelectorAll('.col-nav a').forEach(a => a.classList.remove('active'));
       el.classList.add('active');
-    }
-
-    function addToCart() {
-      alert('added to cart');
     }
   </script>
 
