@@ -11,205 +11,275 @@
       box-sizing: border-box;
     }
 
-    html, body {
-      height: 100%;
-      overflow: hidden;
-    }
-
     body {
       background: white;
       color: black;
       font-family: Helvetica, sans-serif;
-      font-size: 12pt;
+      font-size: 9pt;
+      letter-spacing: 0.08em;
     }
 
     header {
-      padding: 24px 32px;
+      padding: 36px 20px 28px;
     }
 
-    .layout {
-      display: grid;
-      grid-template-columns: 200px 1fr 280px;
-      height: calc(100vh - 65px);
+    header h1 {
+      font-size: 18pt;
+      font-weight: normal;
+      letter-spacing: normal;
     }
 
-    /* ── LEFT NAV ── */
-    .col-nav {
-      padding: 0 32px 32px;
-    }
-
-    .col-nav ul {
-      list-style: none;
-    }
-
-    .col-nav ul li {
-      margin-bottom: 6px;
-    }
-
-    .col-nav ul li a {
-      font-size: 12pt;
+    header h1 a {
       color: black;
       text-decoration: none;
     }
 
-    .col-nav ul li a:hover {
-      color: grey;
+    .layout {
+      display: grid;
+      grid-template-columns: 220px 1fr 260px;
+      min-height: calc(100vh - 100px);
+      padding: 0 20px;
     }
 
-    /* ── MIDDLE: IMAGE ── */
-    .col-images {
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-      height: 100%;
-    }
-
-    .col-images.visible {
+    .col-nav {
+      padding: 0 20px 40px 0;
       display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
+
+    .nav-section {
+      margin-bottom: 20px;
+    }
+
+    .nav-section-title {
+      font-size: 9pt;
+      font-weight: bold;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      color: black;
+    }
+
+    .nav-section ul {
+      list-style: none;
+    }
+
+    .nav-section ul li {
+      margin-bottom: 2pt;
+      margin-top: 2pt;
+    }
+
+    .nav-section ul li a {
+      font-size: 9pt;
+      color: #999;
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .nav-section ul li a:hover { color: black; }
+    .nav-section ul li a.active { color: black; }
+
+    .nav-bottom { margin-top: auto; }
+
+    .col-images {
+      padding: 0 20px;
+      display: none;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .col-images.visible { display: flex; }
 
     .img-placeholder {
-      width: 100%;
-      height: calc(100vh - 65px);
+      width: 80%;
+      height: calc(80vh - 100px);
       background: #f0f0f0;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12pt;
+      font-size: 9pt;
       color: #999;
-      object-fit: contain;
+      letter-spacing: 0.1em;
     }
 
     .col-images img {
-      max-height: 100%;
-      max-width: 100%;
+      width: 80%;
+      height: calc(80vh - 100px);
       object-fit: contain;
-    }
-
-    /* ── RIGHT: DESCRIPTION ── */
-    .col-desc {
-      padding: 0 24px 32px;
-      display: none;
-      overflow-y: auto;
-      max-height: 100%;
-    }
-
-    .col-desc.visible {
       display: block;
     }
 
-    .col-desc h3 {
+    .col-desc {
+      padding: 0 10px 40px 20px;
       display: none;
     }
 
-    .col-desc p {
-      font-size: 12pt;
-      line-height: 1.6;
-      margin-bottom: 8px;
+    .col-desc.visible { display: block; }
+
+    .lookbook-label {
+      font-size: 9pt;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 10px;
     }
 
-    .col-desc .price {
-      margin-bottom: 12px;
+    #gallery-nav {
+      display: none;
+      margin-bottom: 20px;
+      font-size: 9pt;
+      letter-spacing: 0.1em;
     }
 
-    .col-desc button {
-      font-family: Helvetica, sans-serif;
-      font-size: 12pt;
-      background: white;
+    #gallery-counter {
+      margin-right: 12px;
       color: black;
+    }
+
+    #gallery-nav button {
+      font-family: Helvetica, sans-serif;
+      font-size: 9pt;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: white;
+      color: #999;
       border: none;
       padding: 0;
       cursor: pointer;
-      text-decoration: underline;
     }
 
-    .col-desc button:hover {
-      opacity: 0.5;
+    #gallery-nav button:hover { color: black; }
+
+    #gallery-nav .divider {
+      color: #999;
+      margin: 0 6px;
     }
 
-      /* ── MOBILE ── */
+    .col-desc p {
+      font-size: 9pt;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      line-height: 1.8;
+      margin-bottom: 2pt;
+      margin-top: 2pt;
+      color: black;
+    }
+
+    .col-desc .price {
+      color: #999;
+      margin-bottom: 2pt;
+      margin-top: 2pt;
+    }
+
+    .col-desc button.add-to-cart {
+      font-family: Helvetica, sans-serif;
+      font-size: 9pt;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: white;
+      color: #999;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      margin-top: 2pt;
+      margin-bottom: 2pt;
+    }
+
+    .col-desc button.add-to-cart:hover { color: black; }
+
+    .special-btn {
+      display: block;
+      font-family: Helvetica, sans-serif;
+      font-size: 9pt;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: white;
+      color: #999;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      margin-bottom: 2pt;
+      margin-top: 2pt;
+    }
+
+    .special-btn:hover { color: black; }
+
+    footer {
+      padding: 20px 30px;
+      font-size: 8pt;
+      color: #bbb;
+      letter-spacing: 0.08em;
+    }
+
     @media (max-width: 768px) {
-      .layout {
-        display: block;
-      }
-
-      .col-nav {
-        padding: 0 24px 24px;
-      }
-
-      .col-images {
-        padding: 0 24px 24px;
-      }
-
-      .col-images.visible {
-        display: block;
-      }
-
-      .img-placeholder {
-        width: 100%;
-        height: 60vw;
-      }
-
-      .col-images img {
-        width: 100%;
-        height: 60vw;
-        object-fit: contain;
-      }
-
-      .col-desc {
-        padding: 0 24px 24px;
-      }
+      .layout { display: block; padding: 0 16px; }
+      .col-nav { padding: 0 0 24px; }
+      .col-images { padding: 0 0 24px; }
+      .col-images.visible { display: block; }
+      .img-placeholder { width: 100%; height: 60vw; }
+      .col-images img { width: 100%; height: 60vw; }
+      .col-desc { padding: 0 0 24px; }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1 style="font-size:12pt; font-weight:bold;">
-      <a href="#" onclick="goHome(); return false;" style="color:black; text-decoration:none;">
-        lunchbells
-      </a>
-    </h1>
+    <h1><a href="#" onclick="goHome(); return false;" style="color:black; text-decoration:none;">lunchbells</a></h1>
   </header>
 
   <div class="layout">
 
-    <!-- LEFT: nav -->
     <nav class="col-nav">
-      <ul>
-        <li><a href="#" onclick="showProduct('accessories', event); return false;">accessories</a></li>
-        <li><a href="#" onclick="showPage('special project', event); return false;">special project</a></li>
-        <li><a href="#" onclick="showPage('contact', event); return false;">contact</a></li>
-        <li><a href="#" onclick="showPage('legal terms', event); return false;">legal terms</a></li>
-        <li><a href="#" onclick="showPage('personal data', event); return false;">personal data</a></li>
-      </ul>
+      <div>
+        <div class="nav-section">
+          <div class="nav-section-title">shop</div>
+          <ul>
+            <li><a href="#" onclick="showProduct('accessories'); return false;">accessories</a></li>
+            <li><a href="#" onclick="showPage('special project'); return false;">special project</a></li>
+          </ul>
+        </div>
+        <div class="nav-section">
+          <div class="nav-section-title">information</div>
+          <ul>
+            <li><a href="#" onclick="showPage('contact'); return false;">contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="nav-bottom">
+        <div class="nav-section">
+          <ul>
+            <li><a href="#" onclick="showPage('legal terms'); return false;">legal terms</a></li>
+            <li><a href="#" onclick="showPage('personal data'); return false;">personal data</a></li>
+          </ul>
+        </div>
+      </div>
     </nav>
 
-     <!-- MIDDLE: image -->
     <main class="col-images" id="col-images">
       <div class="img-placeholder" id="product-image">image</div>
     </main>
 
- <!-- RIGHT: description -->
     <aside class="col-desc" id="col-desc">
-      <div id="gallery-nav" style="display:none; margin-bottom:12px;">
-        <button onclick="prevImage()" style="font-family:Helvetica,sans-serif; font-size:12pt; background:white; color:black; border:none; padding:0; cursor:pointer; text-decoration:none;" onmouseover="this.style.color='grey'" onmouseout="this.style.color='black'">previous</button>
-        <span> / </span>
-        <button onclick="nextImage()" style="font-family:Helvetica,sans-serif; font-size:12pt; background:white; color:black; border:none; padding:0; cursor:pointer; text-decoration:none;" onmouseover="this.style.color='grey'" onmouseout="this.style.color='black'">next</button>
+      <div class="lookbook-label" id="lookbook-label"></div>
+      <div id="gallery-nav">
+        <span id="gallery-counter"></span>
+        <button onclick="prevImage()">previous</button>
+        <span class="divider">/</span>
+        <button onclick="nextImage()">next</button>
       </div>
-      <h3 id="product-name"></h3>
-      <p id="product-desc"></p>
-      <p class="price" id="product-price"></p>
-      <span id="product-cta"></span>
+      <div id="product-body"></div>
     </aside>
 
   </div>
 
-   <script>
+  <footer>&copy; 2025 lunchbells</footer>
+
+  <script>
     const products = {
       accessories: {
-        name: 'accessories',
         images: [
           { src: null, label: 'image 1' },
           { src: null, label: 'image 2' },
@@ -217,47 +287,22 @@
           { src: null, label: 'image 4' },
           { src: null, label: 'image 5' }
         ],
-        descriptions: [
-          { desc: 'thin band ring. sterling silver. available in sizes 5–10.', price: '$68' },
-          { desc: 'delicate chain necklace. 18k gold-plated. 16" length.', price: '$124' },
-          { desc: 'small hoop earrings. sterling silver. hypoallergenic posts.', price: '$48' },
-          { desc: 'delicate chain bracelet. 14k gold fill. adjustable 6"–7.5".', price: '$86' },
-          { desc: 'pendant necklace. sterling silver. 18" chain.', price: '$95' }
-        ],
-        cta: 'add to cart'
+        desc: '-- inch hand woven silver chain and silk thread cord.',
+        price: '$200',
+        cta: 'add to cart',
+        colors: ['red', 'blue', 'green', 'turquoise', 'grey']
       }
+    };
+
+    const pages = {
+      'special project': { buttons: ['books', 'production'] },
+      contact: { desc: 'text 310-283-2732' },
+      'legal terms': { desc: 'all purchases are subject to our terms and conditions. prices are listed in usd and are subject to change. lunchbells reserves the right to cancel any order.' },
+      'personal data': { desc: 'we collect only the information necessary to process your order. your data is never sold to third parties.' }
     };
 
     let currentIndex = 0;
     let currentProduct = null;
-
-    const pages = {
-      'special project': {
-        name: 'special project',
-        desc: '',
-        price: '',
-        cta: '',
-        buttons: ['books', 'production']
-      },
-      contact: {
-        name: 'contact',
-        desc: 'text 310-283-2732',
-        price: '',
-        cta: ''
-      },
-      'legal terms': {
-        name: 'legal terms',
-        desc: 'all purchases are subject to our terms and conditions. prices are listed in usd and are subject to change. lunchbells reserves the right to cancel any order.',
-        price: '',
-        cta: ''
-      },
-      'personal data': {
-        name: 'personal data',
-        desc: 'we collect only the information necessary to process your order. your data is never sold to third parties.',
-        price: '',
-        cta: ''
-      }
-    };
 
     function goHome() {
       document.getElementById('col-images').classList.remove('visible');
@@ -265,68 +310,75 @@
       document.querySelectorAll('.col-nav a').forEach(a => a.classList.remove('active'));
     }
 
-    function showProduct(key, event) {
+    function showProduct(key) {
       const p = products[key];
       if (!p) return;
 
       currentProduct = p;
       currentIndex = 0;
-      renderGallery();
+      updateImage();
+
+      document.getElementById('lookbook-label').textContent = 'lookbook';
+      document.getElementById('gallery-nav').style.display = p.images.length > 1 ? 'block' : 'none';
+
+      let colorHtml = '';
+      if (p.colors) {
+        colorHtml = `<div style="margin-top:4pt; margin-bottom:4pt;">
+          <select id="color-select" style="font-family:Helvetica,sans-serif; font-size:9pt; letter-spacing:0.1em; text-transform:uppercase; border:none; border-bottom:1px solid #999; background:white; color:#999; padding:2pt 0; cursor:pointer; outline:none; appearance:none; -webkit-appearance:none; display:block;">
+            <option value="">select color</option>
+            ${p.colors.map(c => `<option value="${c}">${c}</option>`).join('')}
+          </select>
+        </div>`;
+      }
+
+      document.getElementById('product-body').innerHTML =
+        `<p>${p.desc}</p>
+         <p class="price">${p.price}</p>
+         ${colorHtml}
+         <button class="add-to-cart">${p.cta}</button>`;
 
       document.getElementById('col-images').classList.add('visible');
       document.getElementById('col-desc').classList.add('visible');
-      document.getElementById('gallery-nav').style.display =
-        p.images.length > 1 ? 'block' : 'none';
-
       setActive(event.target);
     }
 
-    function renderGallery() {
-      const p = currentProduct;
-      const img = p.images[currentIndex];
-      const info = p.descriptions[currentIndex];
-
-      const imageEl = document.getElementById('product-image');
-      imageEl.textContent = img.label;
-
-      document.getElementById('product-name').textContent = p.name;
-      document.getElementById('product-desc').textContent = info.desc;
-      document.getElementById('product-price').textContent = info.price;
-      document.getElementById('product-cta').innerHTML = p.cta ? `<button>${p.cta}</button>` : '';
+    function updateImage() {
+      const img = currentProduct.images[currentIndex];
+      const el = document.getElementById('product-image');
+      el.textContent = img.label;
+      document.getElementById('gallery-counter').textContent = (currentIndex + 1);
     }
 
     function prevImage() {
       if (!currentProduct) return;
       currentIndex = (currentIndex - 1 + currentProduct.images.length) % currentProduct.images.length;
-      renderGallery();
+      updateImage();
     }
 
     function nextImage() {
       if (!currentProduct) return;
       currentIndex = (currentIndex + 1) % currentProduct.images.length;
-      renderGallery();
+      updateImage();
     }
 
     function showPage(key) {
       const p = pages[key];
       if (!p) return;
 
+      currentProduct = null;
       document.getElementById('col-images').classList.remove('visible');
       document.getElementById('gallery-nav').style.display = 'none';
-      document.getElementById('product-name').textContent = p.name;
-      document.getElementById('product-desc').textContent = p.desc;
-      document.getElementById('product-price').textContent = p.price;
+      document.getElementById('lookbook-label').textContent = '';
 
       if (p.buttons) {
-        document.getElementById('product-cta').innerHTML = p.buttons
-          .map(b => `<button onclick="alert('${b} coming soon')" style="display:block; margin-bottom:6px; font-family:Helvetica,sans-serif; font-size:12pt; background:white; color:black; border:none; padding:0; cursor:pointer; text-decoration:none;" onmouseover="this.style.color='grey'" onmouseout="this.style.color='black'">${b}</button>`)
+        document.getElementById('product-body').innerHTML = p.buttons
+          .map(b => `<button class="special-btn">${b}</button>`)
           .join('');
       } else {
-        document.getElementById('product-cta').innerHTML = '';
+        document.getElementById('product-body').innerHTML = `<p>${p.desc || ''}</p>`;
       }
 
       document.getElementById('col-desc').classList.add('visible');
-
       setActive(event.target);
     }
 
