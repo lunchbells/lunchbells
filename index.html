@@ -19,6 +19,7 @@
       letter-spacing: 0.08em;
     }
 
+    /* ── HEADER ── */
     header {
       padding: 36px 20px 28px;
     }
@@ -34,6 +35,7 @@
       text-decoration: none;
     }
 
+    /* ── LAYOUT ── */
     .layout {
       display: grid;
       grid-template-columns: 220px 1fr 260px;
@@ -41,6 +43,7 @@
       padding: 0 20px;
     }
 
+    /* ── LEFT NAV ── */
     .col-nav {
       padding: 0 20px 40px 0;
       display: flex;
@@ -83,6 +86,7 @@
 
     .nav-bottom { margin-top: auto; }
 
+    /* ── MIDDLE: IMAGE ── */
     .col-images {
       padding: 0 20px;
       display: none;
@@ -111,6 +115,7 @@
       display: block;
     }
 
+    /* ── RIGHT: DESCRIPTION ── */
     .col-desc {
       padding: 0 10px 40px 20px;
       display: none;
@@ -206,6 +211,7 @@
 
     .special-btn:hover { color: black; }
 
+    /* ── FOOTER ── */
     footer {
       padding: 20px 30px;
       font-size: 8pt;
@@ -213,6 +219,7 @@
       letter-spacing: 0.08em;
     }
 
+    /* ── MOBILE ── */
     @media (max-width: 768px) {
       .layout { display: block; padding: 0 16px; }
       .col-nav { padding: 0 0 24px; }
@@ -221,6 +228,20 @@
       .img-placeholder { width: 100%; height: 60vw; }
       .col-images img { width: 100%; height: 60vw; }
       .col-desc { padding: 0 0 24px; }
+    }
+
+    /* ── HOMEPAGE GRID ── */
+    .home-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      align-content: start;
+    }
+
+    .home-grid-item {
+      aspect-ratio: 3/4;
+      width: 80%;
+      background: #f0f0f0;
     }
   </style>
 </head>
@@ -235,33 +256,50 @@
     <nav class="col-nav">
       <div>
         <div class="nav-section">
-          <div class="nav-section-title">shop</div>
           <ul>
             <li><a href="#" onclick="showProduct('accessories'); return false;">accessories</a></li>
             <li><a href="#" onclick="showPage('special project'); return false;">special project</a></li>
           </ul>
         </div>
         <div class="nav-section">
-          <div class="nav-section-title">information</div>
           <ul>
             <li><a href="#" onclick="showPage('contact'); return false;">contact</a></li>
           </ul>
         </div>
       </div>
-      <div class="nav-bottom">
-        <div class="nav-section">
-          <ul>
-            <li><a href="#" onclick="showPage('legal terms'); return false;">legal terms</a></li>
-            <li><a href="#" onclick="showPage('personal data'); return false;">personal data</a></li>
-          </ul>
-        </div>
-      </div>
+      <div class="nav-bottom" id="nav-bottom-links"></div>
     </nav>
 
+    <!-- HOMEPAGE GRID -->
+    <div class="home-grid" id="home-grid" style="grid-column: span 2;">
+      <div class="home-grid-item" style="background:none;"></div>
+      <div class="home-grid-item" style="background:none;"></div>
+      <div class="home-grid-item" style="background:none;"></div>
+      <div class="home-grid-item"></div>
+      <div class="home-grid-item"></div>
+      <div class="home-grid-item"></div>
+      <div class="home-grid-item" style="background:none;"></div>
+      <div class="home-grid-item" style="background:none;"></div>
+      <div class="home-grid-item" style="background:none;"></div>
+      <div class="home-grid-item"></div>
+      <div class="home-grid-item" style="background:none;"></div>
+      <div class="home-grid-item"></div>
+      <div class="home-grid-item" style="background:none;"></div>
+      <div class="home-grid-item" style="background:none;"></div>
+      <div class="home-grid-item"></div>
+      <div class="home-grid-item" style="background:none;"></div>
+      <div style="grid-column: span 4; margin-top: 8px; display:flex; justify-content:flex-end; gap:16px;">
+        <a href="#" onclick="showPage('legal terms'); return false;" style="font-size:7pt; color:#999; text-decoration:none; letter-spacing:0.1em; text-transform:uppercase;">legal terms</a>
+        <a href="#" onclick="showPage('personal data'); return false;" style="font-size:7pt; color:#999; text-decoration:none; letter-spacing:0.1em; text-transform:uppercase;">personal data</a>
+      </div>
+    </div>
+
+    <!-- MIDDLE: image -->
     <main class="col-images" id="col-images">
       <div class="img-placeholder" id="product-image">image</div>
     </main>
 
+    <!-- RIGHT: description -->
     <aside class="col-desc" id="col-desc">
       <div class="lookbook-label" id="lookbook-label"></div>
       <div id="gallery-nav">
@@ -307,10 +345,12 @@
     function goHome() {
       document.getElementById('col-images').classList.remove('visible');
       document.getElementById('col-desc').classList.remove('visible');
+      document.getElementById('home-grid').style.display = 'grid';
       document.querySelectorAll('.col-nav a').forEach(a => a.classList.remove('active'));
     }
 
     function showProduct(key) {
+      document.getElementById('home-grid').style.display = 'none';
       const p = products[key];
       if (!p) return;
 
@@ -362,6 +402,7 @@
     }
 
     function showPage(key) {
+      document.getElementById('home-grid').style.display = 'none';
       const p = pages[key];
       if (!p) return;
 
