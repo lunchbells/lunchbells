@@ -19,7 +19,6 @@
       letter-spacing: 0.08em;
     }
 
-    /* ── HEADER ── */
     header {
       padding: 36px 20px 28px;
     }
@@ -35,7 +34,6 @@
       text-decoration: none;
     }
 
-    /* ── LAYOUT ── */
     .layout {
       display: grid;
       grid-template-columns: 220px 1fr 260px;
@@ -43,7 +41,6 @@
       padding: 0 20px;
     }
 
-    /* ── LEFT NAV ── */
     .col-nav {
       padding: 0 20px 40px 0;
       display: flex;
@@ -53,15 +50,6 @@
 
     .nav-section {
       margin-bottom: 20px;
-    }
-
-    .nav-section-title {
-      font-size: 9pt;
-      font-weight: bold;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-      color: black;
     }
 
     .nav-section ul {
@@ -86,7 +74,6 @@
 
     .nav-bottom { margin-top: auto; }
 
-    /* ── MIDDLE: IMAGE ── */
     .col-images {
       padding: 0 20px;
       display: none;
@@ -115,7 +102,6 @@
       display: block;
     }
 
-    /* ── RIGHT: DESCRIPTION ── */
     .col-desc {
       padding: 0 10px 40px 20px;
       display: none;
@@ -211,7 +197,6 @@
 
     .special-btn:hover { color: black; }
 
-    /* ── FOOTER ── */
     footer {
       padding: 20px 30px;
       font-size: 8pt;
@@ -219,7 +204,6 @@
       letter-spacing: 0.08em;
     }
 
-    /* ── MOBILE ── */
     @media (max-width: 768px) {
       .layout { display: block; padding: 0 16px; }
       .col-nav { padding: 0 0 24px; }
@@ -230,7 +214,6 @@
       .col-desc { padding: 0 0 24px; }
     }
 
-    /* ── HOMEPAGE GRID ── */
     .home-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -240,7 +223,7 @@
 
     .home-grid-item {
       aspect-ratio: 3/4;
-      width: 80%;
+      width: 50%;
       background: #f0f0f0;
     }
   </style>
@@ -270,7 +253,6 @@
       <div class="nav-bottom" id="nav-bottom-links"></div>
     </nav>
 
-    <!-- HOMEPAGE GRID -->
     <div class="home-grid" id="home-grid" style="grid-column: span 2;">
       <div class="home-grid-item" style="background:none;"></div>
       <div class="home-grid-item" style="background:none;"></div>
@@ -289,145 +271,4 @@
       <div class="home-grid-item"></div>
       <div class="home-grid-item" style="background:none;"></div>
       <div style="grid-column: span 4; margin-top: 8px; display:flex; justify-content:flex-end; gap:16px;">
-        <a href="#" onclick="showPage('legal terms'); return false;" style="font-size:7pt; color:#999; text-decoration:none; letter-spacing:0.1em; text-transform:uppercase;">legal terms</a>
-        <a href="#" onclick="showPage('personal data'); return false;" style="font-size:7pt; color:#999; text-decoration:none; letter-spacing:0.1em; text-transform:uppercase;">personal data</a>
-      </div>
-    </div>
-
-    <!-- MIDDLE: image -->
-    <main class="col-images" id="col-images">
-      <div class="img-placeholder" id="product-image">image</div>
-    </main>
-
-    <!-- RIGHT: description -->
-    <aside class="col-desc" id="col-desc">
-      <div class="lookbook-label" id="lookbook-label"></div>
-      <div id="gallery-nav">
-        <span id="gallery-counter"></span>
-        <button onclick="prevImage()">previous</button>
-        <span class="divider">/</span>
-        <button onclick="nextImage()">next</button>
-      </div>
-      <div id="product-body"></div>
-    </aside>
-
-  </div>
-
-  <footer>&copy; 2025 lunchbells</footer>
-
-  <script>
-    const products = {
-      accessories: {
-        images: [
-          { src: null, label: 'image 1' },
-          { src: null, label: 'image 2' },
-          { src: null, label: 'image 3' },
-          { src: null, label: 'image 4' },
-          { src: null, label: 'image 5' }
-        ],
-        desc: '-- inch hand woven silver chain and silk thread cord.',
-        price: '$200',
-        cta: 'add to cart',
-        colors: ['red', 'blue', 'green', 'turquoise', 'grey']
-      }
-    };
-
-    const pages = {
-      'special project': { buttons: ['books', 'production'] },
-      contact: { desc: 'text 310-283-2732' },
-      'legal terms': { desc: 'all purchases are subject to our terms and conditions. prices are listed in usd and are subject to change. lunchbells reserves the right to cancel any order.' },
-      'personal data': { desc: 'we collect only the information necessary to process your order. your data is never sold to third parties.' }
-    };
-
-    let currentIndex = 0;
-    let currentProduct = null;
-
-    function goHome() {
-      document.getElementById('col-images').classList.remove('visible');
-      document.getElementById('col-desc').classList.remove('visible');
-      document.getElementById('home-grid').style.display = 'grid';
-      document.querySelectorAll('.col-nav a').forEach(a => a.classList.remove('active'));
-    }
-
-    function showProduct(key) {
-      document.getElementById('home-grid').style.display = 'none';
-      const p = products[key];
-      if (!p) return;
-
-      currentProduct = p;
-      currentIndex = 0;
-      updateImage();
-
-      document.getElementById('lookbook-label').textContent = 'lookbook';
-      document.getElementById('gallery-nav').style.display = p.images.length > 1 ? 'block' : 'none';
-
-      let colorHtml = '';
-      if (p.colors) {
-        colorHtml = `<div style="margin-top:4pt; margin-bottom:4pt;">
-          <select id="color-select" style="font-family:Helvetica,sans-serif; font-size:9pt; letter-spacing:0.1em; text-transform:uppercase; border:none; border-bottom:1px solid #999; background:white; color:#999; padding:2pt 0; cursor:pointer; outline:none; appearance:none; -webkit-appearance:none; display:block;">
-            <option value="">select color</option>
-            ${p.colors.map(c => `<option value="${c}">${c}</option>`).join('')}
-          </select>
-        </div>`;
-      }
-
-      document.getElementById('product-body').innerHTML =
-        `<p>${p.desc}</p>
-         <p class="price">${p.price}</p>
-         ${colorHtml}
-         <button class="add-to-cart">${p.cta}</button>`;
-
-      document.getElementById('col-images').classList.add('visible');
-      document.getElementById('col-desc').classList.add('visible');
-      setActive(event.target);
-    }
-
-    function updateImage() {
-      const img = currentProduct.images[currentIndex];
-      const el = document.getElementById('product-image');
-      el.textContent = img.label;
-      document.getElementById('gallery-counter').textContent = (currentIndex + 1);
-    }
-
-    function prevImage() {
-      if (!currentProduct) return;
-      currentIndex = (currentIndex - 1 + currentProduct.images.length) % currentProduct.images.length;
-      updateImage();
-    }
-
-    function nextImage() {
-      if (!currentProduct) return;
-      currentIndex = (currentIndex + 1) % currentProduct.images.length;
-      updateImage();
-    }
-
-    function showPage(key) {
-      document.getElementById('home-grid').style.display = 'none';
-      const p = pages[key];
-      if (!p) return;
-
-      currentProduct = null;
-      document.getElementById('col-images').classList.remove('visible');
-      document.getElementById('gallery-nav').style.display = 'none';
-      document.getElementById('lookbook-label').textContent = '';
-
-      if (p.buttons) {
-        document.getElementById('product-body').innerHTML = p.buttons
-          .map(b => `<button class="special-btn">${b}</button>`)
-          .join('');
-      } else {
-        document.getElementById('product-body').innerHTML = `<p>${p.desc || ''}</p>`;
-      }
-
-      document.getElementById('col-desc').classList.add('visible');
-      setActive(event.target);
-    }
-
-    function setActive(el) {
-      document.querySelectorAll('.col-nav a').forEach(a => a.classList.remove('active'));
-      el.classList.add('active');
-    }
-  </script>
-
-</body>
-</html>
+        <a href="#" onclick="showPage('legal terms'); return false;
