@@ -1,1 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>lunchbells</title>
+  <style>
+    * { box-sizing: border-box; }
 
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #ffffff;
+      color: #222222;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* Top spacer (the original uses a transparent spacer image here) */
+    .spacer { height: 24px; }
+
+    /* Wordmark / site name, a single text link */
+    .wordmark {
+      display: inline-block;
+      margin: 8px 0 24px;
+      font-size: 1.5rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Large central image, left blank on purpose */
+    .hero {
+      width: min(90vw, 720px);
+      aspect-ratio: 4 / 3;
+      background: #e6e6e6;
+      border: 1px solid #cfcfcf;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8a8a8a;
+      font-size: 0.9rem;
+    }
+    /* To use a real image, replace the .hero div with:
+       <img class="hero" src="your-image.jpg" alt="Describe your image"> */
+
+    /* Language selector row below the image */
+    .languages {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px 18px;
+      margin: 24px 0 40px;
+      padding: 0;
+      list-style: none;
+    }
+    .languages a {
+      color: #444444;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+    .languages a:hover,
+    .languages a:focus { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="spacer"></div>
+
+  <a class="wordmark" href="index.html">Your Project Name</a>
+
+  <div class="hero" role="img" aria-label="Image placeholder">Image placeholder</div>
+
+  <ul class="languages">
+    <li><a href="index.html?lang=de">Deutsch</a></li>
+    <li><a href="index.html?lang=en">English</a></li>
+    <li><a href="index.html?lang=es">Español</a></li>
+    <li><a href="index.html?lang=pt">Português</a></li>
+    <li><a href="index.html?lang=fr">Français</a></li>
+    <li><a href="index.html?lang=it">Italiano</a></li>
+  </ul>
+</body>
+</html>
