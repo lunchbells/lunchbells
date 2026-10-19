@@ -94,7 +94,7 @@
     (function () {
       var slides = document.querySelectorAll('.slideshow .slide');
       var current = 0;
-      var DELAY = 4000; // milliseconds between automatic slide changes
+      var DELAY = 7000; // milliseconds between automatic slide changes
 
       function show(n) {
         current = (n + slides.length) % slides.length;
@@ -102,9 +102,7 @@
       }
 
       show(0);
-
-      // Skip auto-play for people who prefer reduced motion
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      
         setInterval(function () { show(current + 1); }, DELAY);
       }
     })();
