@@ -18,10 +18,9 @@
       font-family: Arial, Helvetica, sans-serif;
     }
 
-    /* Top spacer (the original uses a transparent spacer image here) */
     .spacer { height: 24px; }
 
-    /* Slideshow: 4 slides stacked on top of each other, one visible at a time */
+    /* Slideshow: slides stacked on top of each other, one visible at a time */
     .slideshow {
       position: relative;
       width: min(90vw, 720px);
@@ -49,7 +48,6 @@
       object-fit: cover;
     }
 
-    /* Language selector row below the image */
     .languages {
       display: grid;
       grid-template-columns: repeat(3, auto);
@@ -72,13 +70,16 @@
 <body>
   <div class="spacer"></div>
 
-  <!-- To use real photos, replace the text inside each .slide with:
-       <img src="photo1.jpg" alt="Describe the image"> -->
   <div class="slideshow" role="region" aria-roledescription="carousel" aria-label="Image slideshow">
-    <div class="slide active" style="background:#e6e6e6">Image 1 placeholder</div>
-    <div class="slide" style="background:#dcdcdc">Image 2 placeholder</div>
-    <div class="slide" style="background:#d2d2d2">Image 3 placeholder</div>
-    <div class="slide" style="background:#c8c8c8">Image 4 placeholder</div>
+
+    <!-- ADD YOUR 5 IMAGES HERE: change each src to your own file name/path.
+         Keep the first slide as class="slide active"; the others as class="slide". -->
+    <div class="slide active"><img src="images/photo1.jpg" alt="Describe image 1"></div>
+    <div class="slide"><img src="images/photo2.jpg" alt="Describe image 2"></div>
+    <div class="slide"><img src="images/photo3.jpg" alt="Describe image 3"></div>
+    <div class="slide"><img src="images/photo4.jpg" alt="Describe image 4"></div>
+    <div class="slide"><img src="images/photo5.jpg" alt="Describe image 5"></div>
+
   </div>
 
   <ul class="languages">
@@ -102,7 +103,8 @@
       }
 
       show(0);
-      
+
+      if (slides.length > 1) {
         setInterval(function () { show(current + 1); }, DELAY);
       }
     })();
